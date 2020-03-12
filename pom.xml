@@ -286,6 +286,51 @@
 		    <version>1.2.62</version>
 		</dependency>
   </dependencies>
+  
+  <profiles>
+  	<profile>
+    	<id>production</id>
+        	<build>
+            	<resources>
+                	<resource>
+                    	<directory>${project.basedir}/src/main/resources</directory>
+                        	<excludes>
+                                         <exclude>**/*.java</exclude>
+                                   </excludes>
+                             </resource>
+                        </resources>
+
+                        <plugins>
+                             <plugin>
+                                   <groupId>org.apache.maven.plugins</groupId>
+                                   <artifactId>maven-resources-plugin</artifactId>
+                                   <configuration>
+                                         <encoding>UTF-8</encoding>
+                                   </configuration>
+                             </plugin>
+                        </plugins>
+                  </build>
+
+
+                  <dependencies>
+                        <!-- Servlet -->
+                        <dependency>
+                             <groupId>javax.servlet</groupId>
+                             <artifactId>javax.servlet-api</artifactId>
+                             <version>3.0.1</version>
+                             <scope>provided</scope>
+                        </dependency>
+
+                        <dependency>
+                             <groupId>javax.servlet.jsp</groupId>
+                             <artifactId>jsp-api</artifactId>
+                             <version>2.0</version>
+                             <scope>provided</scope>
+                        </dependency>
+                  </dependencies>
+            </profile>
+      </profiles>
+
   <build>
     <finalName>erp</finalName>
     <plugins>
@@ -323,6 +368,7 @@
                 </configuration>
             </plugin>
             
+            <!--  -->
 			<plugin>           	
 		      <groupId>org.apache.maven.plugins</groupId>  
 		      <artifactId>maven-resources-plugin</artifactId>  
@@ -331,7 +377,18 @@
 		          <encoding>UTF-8</encoding>  
 		      </configuration> 
             </plugin>	
-			
+            
+            <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+					<artifactId>tomcat-maven-plugin</artifactId>
+					<configuration>
+						<url>http://localhost:8080/manager/text</url>
+						<path>/</path>
+						<username>admin</username>
+						<password>admin</password>
+					</configuration>
+			</plugin>
+			 <!-- -->
     </plugins>
     <resources>
        <resource>
@@ -379,6 +436,9 @@
     <commons.net.version>3.6</commons.net.version>
     <commons.logging.version>1.2</commons.logging.version>
     <commons.collections.version>4.4</commons.collections.version>
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     
   </properties>
 </project>
